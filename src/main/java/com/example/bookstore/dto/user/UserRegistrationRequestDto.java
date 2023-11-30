@@ -1,4 +1,4 @@
-package com.example.bookstore.dto;
+package com.example.bookstore.dto.user;
 
 import com.example.bookstore.lib.FieldMatch;
 import jakarta.validation.constraints.Email;

@@ -2,7 +2,6 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.dto.user.UserRegistrationRequestDto;
 import com.example.bookstore.dto.user.UserResponseDto;
-import com.example.bookstore.exception.RegistrationException;
 import com.example.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,8 +21,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     @Operation(summary = "Register new user", description = "Register new user")
-    public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto requestDto)
-            throws RegistrationException {
+    public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
         return userService.register(requestDto);
     }
 }

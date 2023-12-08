@@ -1,14 +1,18 @@
-package com.example.bookstore.service;
+package com.example.bookstore.service.imp;
 
-import com.example.bookstore.dto.BookDto;
-import com.example.bookstore.dto.CreateBookRequestDto;
+import com.example.bookstore.dto.book.BookDto;
+import com.example.bookstore.dto.book.BookSearchParametersDto;
+import com.example.bookstore.dto.book.CreateBookRequestDto;
 import com.example.bookstore.exception.EntityNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.BookRepository;
+import com.example.bookstore.repository.specification.BookSpecificationBuilder;
+import com.example.bookstore.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder specificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -50,5 +55,16 @@ public class BookServiceImpl implements BookService {
         bookUpdate.setId(id);
         return bookMapper.toDto(bookRepository.save(bookUpdate));
     }
+
+    @Override
+    public List<BookDto> searchBookByParams(BookSearchParametersDto bookSearchParameters,
+                                            Pageable pageable) {
+        Specification<Book> bookSpecification = specificationBuilder.build(bookSearchParameters);
+        return bookRepository.findAll(bookSpecification, pageable)
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
+    }
+
 }
 

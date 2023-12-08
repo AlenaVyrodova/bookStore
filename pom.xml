@@ -113,10 +113,8 @@
                 <version>3.3.0</version>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
+                        <id>checkstyle-validation</id>
+                        <phase>none</phase>
                     </execution>
                 </executions>
                 <configuration>

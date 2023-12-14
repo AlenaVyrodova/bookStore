@@ -4,22 +4,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Set;
+
 import lombok.Data;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Data
-public class CreateBookRequestDto {
+
+public record CreateBookRequestDto (
     @NotNull
-    private String title;
+    String title,
     @NotNull
-    private String author;
+     String author,
     @NotNull
-    private String isbn;
+   String isbn,
     @NotNull
     @Min(0)
-    private BigDecimal price;
+     BigDecimal price,
 
-    private String description;
+   String description,
 
-    private String coverImage;
+    String coverImage,
+
+   Set<Long> categoryIdSet)
+    {
 }

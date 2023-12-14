@@ -10,7 +10,6 @@ import com.example.bookstore.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getById(Long id) {
-
         return categoryMapper.toDto(categoryRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find category with such  id %d"
                         .formatted(id))));
@@ -36,10 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto save(CreateCategoryRequestDto categoryRequestDto) {
-
         return categoryMapper.toDto(categoryRepository.save(categoryMapper
                 .toCategory(categoryRequestDto)));
-
     }
 
     @Override
@@ -47,7 +43,6 @@ public class CategoryServiceImpl implements CategoryService {
         if (!categoryRepository.existsById(id)) {
             throw new EntityNotFoundException("There is not book in db by id %d"
                     .formatted(id));
-
         }
         Category updatedCategory = (categoryMapper.toCategory(categoryRequestDto));
         updatedCategory.setId(id);

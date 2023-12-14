@@ -63,6 +63,5 @@ public class CategoryController {
     @Operation(summary = "Get book by category id", description = "Get book by category id")
     public List getBooksByCategoryId(@PathVariable Long id,Pageable pageable){
         return  bookService.findBookByCategoryId(id,pageable);
-
     }
 }

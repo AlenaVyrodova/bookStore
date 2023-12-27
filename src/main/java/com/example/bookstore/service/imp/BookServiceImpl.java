@@ -7,6 +7,7 @@ import com.example.bookstore.exception.EntityNotFoundException;
 import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.BookRepository;
+import com.example.bookstore.repository.CategoryRepository;
 import com.example.bookstore.repository.specification.BookSpecificationBuilder;
 import com.example.bookstore.service.BookService;
 import java.util.List;
@@ -21,6 +22,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder specificationBuilder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -66,5 +68,11 @@ public class BookServiceImpl implements BookService {
                 .toList();
     }
 
+    @Override
+    public List findBookByCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findAllByCategoriesId(id, pageable).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
+    }
 }
 

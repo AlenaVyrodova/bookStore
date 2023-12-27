@@ -1,25 +1,26 @@
 package com.example.bookstore.dto.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import lombok.Data;
+import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Data
-public class CreateBookRequestDto {
-    @NotNull
-    private String title;
-    @NotNull
-    private String author;
-    @NotNull
-    private String isbn;
-    @NotNull
-    @Min(0)
-    private BigDecimal price;
-
-    private String description;
-
-    private String coverImage;
+public record CreateBookRequestDto(
+        @NotNull
+        String title,
+        @NotNull
+        String author,
+        @NotNull
+        String isbn,
+        @NotNull
+        @Min(0)
+        BigDecimal price,
+        @NotNull
+        String description,
+        @NotNull
+        String coverImage,
+        @NotEmpty
+        Set<Long> categoryIdSet) {
 }
+
